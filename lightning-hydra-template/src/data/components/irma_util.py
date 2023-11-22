@@ -3,6 +3,7 @@ from pathlib import Path
 import pandas as pd
 from PIL import Image
 
+
 class Irma:
     """This is the IRMA data set.
 
@@ -18,7 +19,7 @@ class Irma:
 
     def __init__(self, root, *args, **kwargs):
         self.data_dir = Path(root)
-        
+
     def load(self):
         self.train_labels_path = self.data_dir / "ImageCLEFmed2009_train_codes.02.csv"
         self.train_images_path = self.data_dir / "ImageCLEFmed2009_train.02/ImageCLEFmed2009_train.02"
@@ -33,7 +34,8 @@ class Irma:
         df.loc[:, "Body Region"] = df["Anatomical Code"].apply(self._get_body_region)
         df.loc[:, "Biological Code"] = df["irma_code"].apply(self._get_biological_code)
         df.loc[:, "Body Region Label"] = df["Anatomical Code"].apply(self._get_body_region_label)
-        self.df = df[["image_id", "irma_code", "Path", "Technical Code", "Directional Code", "Anatomical Code", "Biological Code", "Imaging Modality", "Body Region", "Body Region Label"]]
+        self.df = df[["image_id", "irma_code", "Path", "Technical Code", "Directional Code", "Anatomical Code",
+                      "Biological Code", "Imaging Modality", "Body Region", "Body Region Label"]]
 
     def load_image(self, path: str) -> Image:
         """Cache and load an image."""
@@ -113,7 +115,7 @@ class Irma:
 
     def _get_body_region_label(self, anatomical_code: str) -> str:
         first, second, third = anatomical_code
-        return int(first)
+        return int(first)-1
 
     def _get_biological_code(self, irma_code: str) -> str:
         return irma_code.split("-")[3]

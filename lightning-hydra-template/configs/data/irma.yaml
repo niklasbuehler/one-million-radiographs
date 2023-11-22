@@ -1,0 +1,5 @@
+_target_: src.data.irma_datamodule.IRMADataModule
+data_dir: ${paths.data_dir}/IRMA
+train_val_test_split: [8_000, 2_000, 2_677]
+num_workers: 8
+pin_memory: False
