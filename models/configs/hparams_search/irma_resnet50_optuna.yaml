@@ -33,7 +33,7 @@ hydra:
     direction: maximize
 
     # total number of runs that will be executed
-    n_trials: 20
+    n_trials: 10
 
     # choose Optuna hyperparameter sampler
     # you can choose bayesian sampler (tpe), random search (without optimization), grid sampler, and others
@@ -47,4 +47,3 @@ hydra:
     params:
       model.optimizer.lr: interval(0.0001, 0.1)
       model.optimizer.weight_decay: interval(0.0001, 0.1)
-      data.batch_size: choice(32, 64, 128, 256)

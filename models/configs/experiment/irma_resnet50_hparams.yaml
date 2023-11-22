@@ -6,14 +6,14 @@ defaults:
   - override /callbacks: default
   - override /trainer: gpu
 
-tags: ["irma", "resnet50"]
+tags: ["irma", "resnet50", "hparams"]
 
 seed: 12345
 
 model:
   optimizer:
-    lr: 0.0010996131105176186
-    weight_decay: 0.006853864581783747
+    lr: 0.00
+    weight_decay: 0.00
 
 data:
   batch_size: 32
