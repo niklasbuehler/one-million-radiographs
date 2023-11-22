@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Dict
 
 import pandas as pd
 from PIL import Image
@@ -26,14 +25,14 @@ class Irma:
 
         df = pd.read_csv(self.train_labels_path, delimiter=";")
         df.loc[:, "Path"] = df["image_id"].apply(self._get_image_path)
-        df.loc[:, "irma_code"] = df["irma_code"].apply(lambda x: x.replace("-", ""))
         df.loc[:, "Technical Code"] = df["irma_code"].apply(self._get_technical_code)
         df.loc[:, "Imaging Modality"] = df["Technical Code"].apply(self._get_imaging_modality)
         df.loc[:, "Directional Code"] = df["irma_code"].apply(self._get_directional_code)
         df.loc[:, "Imaging Orientation"] = df["Directional Code"].apply(self._get_imaging_orientation)
         df.loc[:, "Anatomical Code"] = df["irma_code"].apply(self._get_anatomical_code)
         df.loc[:, "Body Region"] = df["Anatomical Code"].apply(self._get_body_region)
-        self.df = df
+        df.loc[:, "Biological Code"] = df["irma_code"].apply(self._get_biological_code)
+        self.df = df[["image_id", "irma_code", "Path", "Technical Code", "Directional Code", "Anatomical Code", "Biological Code", "Imaging Modality", "Body Region"]]
 
     def load_image(self, path: str) -> Image:
         """Cache and load an image."""
@@ -43,10 +42,10 @@ class Irma:
         return self.train_images_path / f"{image_id}.png"
 
     def _get_technical_code(self, irma_code: str) -> str:
-        return irma_code[:3]
+        return irma_code.split("-")[0]
 
     def _get_imaging_modality(self, technical_code: str):
-        first, second, third = technical_code
+        first, second, third, fourth = technical_code
         first_categories = {"0": "unspecified",
                             "1": "x-ray",
                             "2": "sonography",
@@ -61,7 +60,7 @@ class Irma:
         return technical_code
 
     def _get_directional_code(self, irma_code: str) -> str:
-        return irma_code[3:6]
+        return irma_code.split("-")[1]
 
     def _get_imaging_orientation(self, directional_code: str) -> str:
         first, second, third = directional_code
@@ -81,7 +80,7 @@ class Irma:
         return result
 
     def _get_anatomical_code(self, irma_code: str) -> str:
-        return irma_code[6:9]
+        return irma_code.split("-")[2]
 
     def _get_body_region(self, anatomical_code: str) -> str:
         first, second, third = anatomical_code
@@ -110,3 +109,6 @@ class Irma:
                 return chest_categories[second]
             return first_categories[first]
         return anatomical_code
+
+    def _get_biological_code(self, irma_code: str) -> str:
+        return irma_code.split("-")[3]
