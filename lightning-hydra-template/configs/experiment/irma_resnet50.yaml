@@ -18,7 +18,7 @@ seed: 12345
 
 model:
   optimizer:
-    lr: 0.0002
+    lr: 0.002
   compile: false
 
 data:

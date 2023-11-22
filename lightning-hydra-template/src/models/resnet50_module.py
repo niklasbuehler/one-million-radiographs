@@ -2,9 +2,11 @@ from typing import Any, Dict, Tuple
 
 import torch
 from lightning import LightningModule
+from torch import nn
 from torchmetrics.classification.accuracy import Accuracy
 from torchmetrics import MaxMetric, MeanMetric
 import torchvision.models as models
+from torchvision.models import ResNet50_Weights
 
 
 class ResNet50BodyPartClassifier(LightningModule):
@@ -20,7 +22,11 @@ class ResNet50BodyPartClassifier(LightningModule):
         self.save_hyperparameters(logger=False)
 
         # Load plain ResNet50 model from torchvision
-        self.net = models.resnet50(num_classes=num_classes) # TODO Try pretrained
+        self.net = models.resnet50(weights=ResNet50_Weights.DEFAULT)
+
+        # Manually reset the last layer of the pretrained model
+        num_ftrs = self.net.fc.in_features
+        self.net.fc = nn.Linear(num_ftrs, num_classes)
 
         self.criterion = torch.nn.CrossEntropyLoss()
 
