@@ -7,7 +7,11 @@ from torchvision.transforms import transforms
 
 from src.data.components.irma_dataset import IRMADataset
 from src.data.components.irma_util import Irma
+# Define normalization transform
 
+normalize_transform = transforms.Compose([
+    transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])  # Normalize to range [0, 1]
+])
 
 class IRMADataModule(LightningDataModule):
     def __init__(
@@ -26,7 +30,7 @@ class IRMADataModule(LightningDataModule):
         self.num_workers = num_workers
         self.pin_memory = pin_memory
 
-        self.transforms = transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor()])
+        self.transforms = transforms.Compose([transforms.Resize((224, 224), transforms.ToTensor(), normalize_transform)])
 
         self.data_train: Optional[torch.utils.data.Dataset] = None
         self.data_val: Optional[torch.utils.data.Dataset] = None

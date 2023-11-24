@@ -6,6 +6,10 @@ defaults:
   - override /callbacks: default
   - override /trainer: gpu
 
+trainer:
+  min_epochs: 1 # prevents early stopping
+  max_epochs: 30
+
 tags: ["irma", "resnet50"]
 
 seed: 12345
