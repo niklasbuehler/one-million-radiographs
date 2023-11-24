@@ -1,7 +1,5 @@
 # @package _global_
 
-# not able to include this right now
-
 defaults:
   - override /data: irma
   - override /model: resnet50
@@ -12,13 +10,11 @@ tags: ["irma", "resnet50", "hparams"]
 
 seed: 12345
 
-model:
-  optimizer:
-    lr: 0.00
-    weight_decay: 0.00
+trainer:
+  max_epochs: 10
 
 data:
-  batch_size: 32
+  batch_size: 128
 
 logger:
   wandb:

@@ -24,7 +24,7 @@ hydra:
     storage: null
 
     # name of the study to persist optimization results
-    study_name: null
+    study_name: "irma_resnet50_optuna"
 
     # number of parallel workers
     n_jobs: 4
@@ -46,4 +46,3 @@ hydra:
     # define hyperparameter search space
     params:
       model.optimizer.lr: interval(0.0001, 0.1)
-      model.optimizer.weight_decay: interval(0.0001, 0.1)

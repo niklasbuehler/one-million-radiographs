@@ -6,21 +6,20 @@ defaults:
   - override /callbacks: default
   - override /trainer: gpu
 
-trainer:
-  min_epochs: 1 # prevents early stopping
-  max_epochs: 30
-
 tags: ["irma", "resnet50"]
 
 seed: 12345
 
+trainer:
+  min_epochs: 1 # prevents early stopping
+  max_epochs: 30
+
 model:
   optimizer:
-    lr: 0.0010996131105176186
-    weight_decay: 0.006853864581783747
+    lr: 0.04382900112681074
 
 data:
-  batch_size: 32
+  batch_size: 128
 
 logger:
   wandb:
