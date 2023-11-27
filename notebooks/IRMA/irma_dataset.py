@@ -97,17 +97,17 @@ class Irma:
             "9": "lower extremity"
         }
         if first in first_categories:
-            if second == "5":
-                chest_categories = {
-                    "0": "chest",
-                    "1": "chest/bones",
-                    "2": "chest/lung",
-                    "3": "chest/hilum",
-                    "4": "chest/mediastinum",
-                    "5": "chest/heart",
-                    "6": "chest/diaphragm"
-                }
-                return chest_categories[second]
+        #    if second == "5":
+        #        chest_categories = {
+        #            "0": "chest",
+        #            "1": "chest/bones",
+        #            "2": "chest/lung",
+        #            "3": "chest/hilum",
+        #            "4": "chest/mediastinum",
+        #            "5": "chest/heart",
+        #            "6": "chest/diaphragm"
+        #        }
+        #        return chest_categories[second]
             return first_categories[first]
         return anatomical_code
 

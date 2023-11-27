@@ -15,6 +15,7 @@ trainer:
 
 data:
   batch_size: 128
+  image_size: 224
 
 logger:
   wandb:

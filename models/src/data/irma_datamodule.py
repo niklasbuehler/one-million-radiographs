@@ -3,15 +3,9 @@ from typing import Any, Optional, Tuple
 import torch
 from lightning import LightningDataModule
 from torch.utils.data import DataLoader, random_split
-from torchvision.transforms import transforms
 
 from src.data.components.irma_dataset import IRMADataset
 from src.data.components.irma_util import Irma
-# Define normalization transform
-
-normalize_transform = transforms.Compose([
-    transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])  # Normalize to range [0, 1]
-])
 
 class IRMADataModule(LightningDataModule):
     def __init__(
@@ -21,6 +15,7 @@ class IRMADataModule(LightningDataModule):
             batch_size: int = 64,
             num_workers: int = 0,
             pin_memory: bool = False,
+            image_size: int = 224, # resnet50: 224, ViT: 384
     ) -> None:
         super().__init__()
         self.save_hyperparameters(logger=False)
@@ -29,8 +24,7 @@ class IRMADataModule(LightningDataModule):
         self.batch_size_per_device = batch_size
         self.num_workers = num_workers
         self.pin_memory = pin_memory
-
-        self.transforms = transforms.Compose([transforms.Resize((224, 224), transforms.ToTensor(), normalize_transform)])
+        self.image_size = image_size
 
         self.data_train: Optional[torch.utils.data.Dataset] = None
         self.data_val: Optional[torch.utils.data.Dataset] = None
@@ -46,7 +40,7 @@ class IRMADataModule(LightningDataModule):
             irma_dataset.load()
 
             # Create an instance of the custom IrmaDataset class
-            custom_dataset = IRMADataset(df=irma_dataset.df, irma_util=irma_dataset)
+            custom_dataset = IRMADataset(df=irma_dataset.df, irma_util=irma_dataset, image_size=self.image_size)
 
             # Split the dataset
             self.data_train, self.data_val, self.data_test = random_split(

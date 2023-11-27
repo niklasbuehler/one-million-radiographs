@@ -2,25 +2,20 @@
 
 defaults:
   - override /data: irma
-  - override /model: resnet50
+  - override /model: vit
   - override /callbacks: default
   - override /trainer: gpu
 
-tags: ["irma", "resnet50"]
+tags: ["irma", "vit", "hparams"]
 
 seed: 12345
 
 trainer:
-  min_epochs: 1 # prevents early stopping
-  max_epochs: 30
-
-model:
-  optimizer:
-    lr: 0.04382900112681074
+  max_epochs: 5
 
 data:
-  batch_size: 128
-  image_size: 224
+  batch_size: 24
+  image_size: 384
 
 logger:
   wandb:
