@@ -1,4 +1,4 @@
-_target_: src.models.vit_mae_module2.VisionTransformerBodyPartClassifier
+_target_: src.models.vit_mae_module.VisionTransformerMAE
 
 optimizer:
   _target_: torch.optim.Adam
@@ -11,8 +11,6 @@ scheduler:
   mode: min
   factor: 0.1
   patience: 10
-
-num_classes: 9 # 9 body region labels
 
 # compile model for faster training with pytorch 2.0
 compile: false
