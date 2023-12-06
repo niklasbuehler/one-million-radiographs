@@ -7,7 +7,7 @@ defaults:
   - override /trainer: gpu
   - override /logger: wandb
 
-tags: ["irma", "resnet50"]
+tags: ["irma", "resnet50", "overfit"]
 
 seed: 12345
 

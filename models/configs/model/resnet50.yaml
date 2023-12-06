@@ -3,7 +3,7 @@ _target_: src.models.resnet50_module.ResNet50BodyPartClassifier
 optimizer:
   _target_: torch.optim.Adam
   _partial_: true
-  lr: 0.001
+  lr: 0.01
 
 scheduler:
   _target_: torch.optim.lr_scheduler.ReduceLROnPlateau

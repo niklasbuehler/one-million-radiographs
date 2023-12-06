@@ -40,6 +40,7 @@ class Irma:
     def load_image(self, path: str) -> Image:
         """Cache and load an image."""
         return Image.open(path).convert("RGB")
+        #return Image.open(path).convert("L")
 
     def _get_image_path(self, image_id: str) -> str:
         return self.train_images_path / f"{image_id}.png"

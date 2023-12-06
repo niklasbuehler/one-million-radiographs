@@ -5,6 +5,7 @@ defaults:
   - override /model: vit
   - override /callbacks: default
   - override /trainer: gpu
+  - override /logger: wandb
 
 tags: ["irma", "vit"]
 
@@ -12,11 +13,12 @@ seed: 12345
 
 trainer:
   min_epochs: 1  # prevents early stopping
-  max_epochs: 30
+  max_epochs: 5
 
 model:
   optimizer:
-    lr: 0.027332001267735898
+    #weight_decay: 0.006853864581783747
+    lr: 0.00002 # 0.00002 for overfitting 3 batches
 
 data:
   batch_size: 16
@@ -25,6 +27,3 @@ data:
 logger:
   wandb:
     tags: ${tags}
-    group: "irma"
-  aim:
-    experiment: "irma"
