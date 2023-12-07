@@ -18,7 +18,7 @@ trainer:
 model:
   optimizer:
     #weight_decay: 0.006853864581783747
-    lr: 0.0002 # 0.0002 for overfitting 3 batches
+    lr: 0.00003171 # 0.0002 for overfitting 3 batches
 
 data:
   batch_size: 32
