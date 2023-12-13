@@ -1,9 +1,9 @@
-_target_: src.models.vit_mae_module.VisionTransformerBodyPartClassifier
+_target_: src.models.vit_mae_probe_module.MAEFineProbeBodyPartClassifier
 
 optimizer:
   _target_: torch.optim.Adam
   _partial_: true
-  lr: 0.01
+  lr: 0.001
 
 scheduler:
   _target_: torch.optim.lr_scheduler.ReduceLROnPlateau
@@ -12,7 +12,9 @@ scheduler:
   factor: 0.1
   patience: 10
 
-num_classes: 9 # 9 body region labels
+num_classes: 9
+mae_checkpoint: "/u/home/bue/deployment/logs/train/runs/2023-12-07_09-10-43/checkpoints/last.ckpt"
+seq_mean: false
 
 # compile model for faster training with pytorch 2.0
 compile: false

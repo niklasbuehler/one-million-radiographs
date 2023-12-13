@@ -34,7 +34,7 @@ class VisionTransformerMAE(LightningModule):
     ) -> Tuple[torch.Tensor, torch.Tensor]:
         x, _ = batch
         #print("Shape of x:", x.size()) # [16, 3, 384, 384]
-        inputs = self.image_processor(x, return_tensors="pt").to(self.device).data["pixel_values"]
+        #inputs = self.image_processor(x, return_tensors="pt").to(self.device).data["pixel_values"]
         #print(inputs)
         #print(type(inputs))
         #print("Shape of inputs:", inputs["pixel_values"].size()) # [16, 3, 224, 224]

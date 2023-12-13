@@ -1,0 +1,29 @@
+# @package _global_
+
+defaults:
+  - override /data: irma
+  - override /model: vit_mae_probe
+  - override /callbacks: default
+  - override /trainer: gpu
+  - override /logger: wandb
+
+tags: ["irma", "vit", "mae", "probe", "overfit"]
+
+seed: 12345
+
+trainer:
+  min_epochs: 1  # prevents early stopping
+  max_epochs: 5
+
+model:
+  optimizer:
+    #weight_decay: 0.006853864581783747
+    lr: 0.002 # 0.002 for overfitting 3 batches
+
+data:
+  batch_size: 128
+  image_size: 224
+
+logger:
+  wandb:
+    tags: ${tags}
